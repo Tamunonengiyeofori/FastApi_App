@@ -1,0 +1,5 @@
+__pycache__
+fastapi/
+.env
+./app/main_SQL.py 
+
