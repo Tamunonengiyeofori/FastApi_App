@@ -34,6 +34,6 @@ app.include_router(vote.router)
 #PATH OPERATIONS  
 @app.get("/")
 def root():
-    return{"message":"Hello World"}
+    return{"message":"WELOME TO THE VOTES MODEL API CREATED WITH FASTAPI"}
 
   
