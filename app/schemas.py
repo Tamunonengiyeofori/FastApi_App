@@ -67,5 +67,6 @@ class TokenData(BaseModel):
 # model for vote
 class Vote(BaseModel):
     post_id: int
-    dir: conint(le=1) # using conint from pydantic to validate/make-sure that vote dir is 1 or zero
+    # using conint from pydantic to validate/make-sure that vote dir is 1 or zero it sets the constraints to only take in 1 or 0
+    dir: conint(ge=0,le=1)
     

@@ -13,8 +13,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# add CORS middleware to allow cross-origin requests and HTTP requests from specific domains
+# set origins to allow all domains
 origins = ["*"]
- 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
