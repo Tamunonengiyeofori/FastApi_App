@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+    api:
+        # build: . 
+        image: 062322/fast_api_course_api
+        depends_on:
+            - postgres
+        command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+        ports:
+            - 80:8000
+        restart: always
+        # volumes:
+        #     - ./:/usr/src/app:ro
+    #   env_file: 
+    #       - ./.env
+        environment:
+            - DATABASE_HOSTNAME=${PROD_DATABASE_HOSTNAME}
+            - DATABASE_PORT=${DATABASE_PORT}
+            - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            - DATABASE_NAME=${DATABASE_NAME}
+            - DATABASE_USERNAME=${DATABASE_USERNAME}
+            - SECRET_KEY=${SECRET_KEY}
+            - ALGORITHM=${ALGORITHM}
+            - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES}
+    
+    postgres:
+        image: postgres
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+            - POSTGRES_DB=${DATABASE_NAME}
+            - POSTGRES_USER=${DATABASE_USERNAME}
+
+        volumes: 
+            - postgres-db:/var/lib/postgresql/data
+
+
+    # pgadmin:
+    #     image:  dpage/pgadmin4
+    #     restart: always
+    #     environment:
+    #         - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+    #         - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    #     ports:
+    #         - 5050:80
+    #     depends_on:
+    #         - postgres
+    #     volumes:
+    #         - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+    postgres-db:
+    # pgadmin-data:
+      

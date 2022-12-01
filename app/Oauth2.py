@@ -16,6 +16,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login") #TokenUrl is the endpoint
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
+REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days
+REFRESH_SECRET_KEY = '3617e6110c08550683dda2094022ef654361b5420b7f84c599be8ce57885c79a'
 
 def create_access_token(data: dict):
     to_encode = data.copy() # create a copy of the data dictionary parameter for jwt payload
@@ -25,6 +27,9 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm = settings.algorithm)
     return encoded_jwt
 
+def create_refresh_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES)
 def verify_access_token(token: str, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[settings.algorithm])

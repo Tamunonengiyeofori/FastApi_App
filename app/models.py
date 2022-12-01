@@ -25,3 +25,12 @@ class Vote(Base):
     __tablename__ = "votes"
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
     post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), primary_key=True)
+    
+    
+class Transcript(Base):
+    __tablename__ = "transcripts"
+    id = Column(Integer, primary_key=True, index=True)
+    text = Column(String, index=True)
+    job_id = Column(Integer, ForeignKey("jobs.id"), unique=True)
+    job = relationship("Job", back_populates="transcript")
+    

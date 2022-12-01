@@ -7,6 +7,7 @@ from .config import settings
 # import CORS from fastapi to handle CORS policy
 from fastapi.middleware.cors import CORSMiddleware
 
+
 # create all the models/tables using sqlalchemy
 # models.Base.metadata.create_all(bind=engine)
 #This line of code is not needed any more as we are using Alembic to create the tables
@@ -34,6 +35,6 @@ app.include_router(vote.router)
 #PATH OPERATIONS  
 @app.get("/")
 def root():
-    return{"message":"WELOME TO THE VOTES MODEL API CREATED WITH FASTAPI"}
+    return{"message":"BIND MOUNT WORKS"}
 
   

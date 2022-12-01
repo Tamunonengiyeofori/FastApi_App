@@ -15,7 +15,7 @@ router = APIRouter(
 
 #Create a path operation for getting all posts
 # @router.get("/", response_model=List[schemas.Post])# Added the List class to return posts as list and avoid an error
-@router.get("/", response_model=List[schemas.PostJoinVotesOut])
+@router.get("/", response_model=List[schemas.PostJoinVotesOut], description="")
 def get_posts(db: Session = Depends(get_db), current_user: int = Depends(Oauth2.get_current_user), 
               limit: int = 10, skip: int = 0, search: Optional[str] = ""):
     # print(limit)
